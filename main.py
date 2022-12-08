@@ -89,3 +89,16 @@ async def get_sensor(sensor_id: int, db:Session = Depends(get_db)):
     db_sensor = db.query(ModelSensors).filter(ModelSensors.id == sensor_id).first()
     return db_sensor
 
+
+@app.delete('/sensors/{sensor_id}')
+async def delete_sensor(sensor_id: int, db:Session = Depends(get_db)):
+    """
+    View to return delete sensors
+    """
+    db_sensor = db.query(ModelSensors).filter(ModelSensors.id == sensor_id)
+    obj = db_sensor.first()
+    db_sensor.delete()
+    db.commit()
+
+    return obj
+
