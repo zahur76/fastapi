@@ -80,3 +80,12 @@ async def all_sensor(db:Session = Depends(get_db)):
     print(db_sensor)
     return db_sensor
 
+
+@app.get('/sensors/{sensor_id}')
+async def get_sensor(sensor_id: int, db:Session = Depends(get_db)):
+    """
+    View to return a sensors
+    """
+    db_sensor = db.query(ModelSensors).filter(ModelSensors.id == sensor_id).first()
+    return db_sensor
+
